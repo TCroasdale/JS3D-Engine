@@ -1,3 +1,12 @@
-body {
+#app-body {
   margin: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;   
+}
+canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  z-index: -1;
 }
