@@ -10,12 +10,18 @@ let SceneController = function () {
 
   let loopCallback = undefined
 
+  let mWorld
+  let fixedTimeStep = 1.0 / 60.0; // seconds
+  let maxSubSteps = 3;
+
 
   let animate = function () {
     const delta = mClock.getDelta()
     if (loopCallback !== undefined) {
       loopCallback(delta)
     }
+    mWorld.step(fixedTimeStep, delta, maxSubSteps)
+
     window.requestAnimationFrame(animate)
     mRenderer.render(mScene, mCamera)
   }
@@ -31,33 +37,40 @@ let SceneController = function () {
 
       mScene = new THREE.Scene()
       mCamera = new THREE.PerspectiveCamera(45, winWidth / winHeight, 0.1, 1000)
-      mCamera.position.z = 1;
+      mCamera.position.z = 15;
 
       mRenderer = new THREE.WebGLRenderer({ antialias: true })
       mRenderer.setSize(winWidth, winHeight)
 
       document.body.appendChild(mRenderer.domElement)
 
-      // let geometry = new THREE.BoxGeometry(1, 1, 1)
-      // let material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-      // let cube = new THREE.Mesh(geometry, material)
-      // mScene.add(cube)
-
       let light = new THREE.AmbientLight(0xffffff) // soft white light
       mScene.add(light)
+
+      mWorld = new CANNON.World()
+      mWorld.gravity = new CANNON.Vec3(0, -9.81, 0)
+      mWorld.solver.iterations = 5
+      mWorld.defaultContactMaterial.contactEquationStiffness = 1e6
+      mWorld.defaultContactMaterial.contactEquationRelaxation = 10
+      mWorld.doProfiling = true
     },
     startRenderLoop: () => {
       animate()
     },
     resize: () => {
       const winWidth = mBodyElem.clientWidth
-      const winHeight = mBodyElem.clientHeight
-      // mCameraController.onResize(winWidth / winHeight)
+      const winHeight = mBodyElem.clientHeight 
+
       mCamera.aspect = winWidth / winHeight
       mCamera.updateProjectionMatrix()
       mRenderer.setSize(winWidth, winHeight)
+    },
+    registerBody: (obj, rBody) => {
+      obj.addComponent(rBody)
+      mWorld.addBody(rBody.body)
+      console.log(obj, rBody, mWorld)
     }
   }
 }
 
-module.exports = SceneController
+module.exports = SceneController 
