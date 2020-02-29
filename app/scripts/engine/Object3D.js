@@ -1,6 +1,7 @@
 let Primitive = {
   BOX: THREE.BoxGeometry,
-  PLANE: THREE.PlaneGeometry
+  PLANE: THREE.PlaneGeometry,
+  SPHERE: THREE.SphereGeometry
 }
 
 let BodyPrimitive = {
