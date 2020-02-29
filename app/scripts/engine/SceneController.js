@@ -11,9 +11,10 @@ let SceneController = function () {
   let loopCallback = undefined
 
   let mWorld
-  let fixedTimeStep = 1.0 / 60.0; // seconds
-  let maxSubSteps = 3;
+  let fixedTimeStep = 1.0 / 60.0 // seconds
+  let maxSubSteps = 3
 
+  let ratio = 0.5
 
   let animate = function () {
     const delta = mClock.getDelta()
@@ -34,10 +35,9 @@ let SceneController = function () {
       mBodyElem = appBody
       const winWidth = appBody.clientWidth
       const winHeight = appBody.clientHeight
+      ratio = winWidth / winHeight
 
       mScene = new THREE.Scene()
-      mCamera = new THREE.PerspectiveCamera(45, winWidth / winHeight, 0.1, 1000)
-      mCamera.position.z = 15;
 
       mRenderer = new THREE.WebGLRenderer({ antialias: true })
       mRenderer.setSize(winWidth, winHeight)
@@ -68,13 +68,12 @@ let SceneController = function () {
     registerBody: (obj, rBody) => {
       obj.addComponent(rBody)
       mWorld.addBody(rBody.body)
-      console.log(obj, rBody, mWorld)
     },
     registerCamera: (obj, camera) => {
       obj.addComponent(camera)
-      camera.camera = new THREE.PerspectiveCamera(camera.FoV, winWidth / winHeight, camera.near, camera.far)
+      camera.camera = new THREE.PerspectiveCamera(camera.FoV, ratio, camera.near, camera.far)
+      obj.getMesh().add(camera.camera)
       mCamera = camera.camera
-
     }
   }
 }

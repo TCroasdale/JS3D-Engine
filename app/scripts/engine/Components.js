@@ -9,6 +9,21 @@ class Component {
   static fromParameters(p) {}
 }
 
+let BodyPrimitive = {
+  CUBE: (x, y, z) => { return new CANNON.Box(new CANNON.Vec3(x, y, z)) },
+  SPHERE: (r) => { return new CANNON.Sphere(r) }
+}
+
+let parseBodyPrimitive = (object) => {
+  if (object.Primitive === "Cube") {
+    return BodyPrimitive.CUBE(object.HalfExtents.w, object.HalfExtents.h, object.HalfExtents.d )
+  } else if (object.Primitive === "Sphere") {
+    return BodyPrimitive.SPHERE(object.Radius)
+  }
+
+  return undefined
+}
+
 class RigidBody extends Component {
   constructor(obj, bodyShape, mass) {
     super(obj)
@@ -39,6 +54,10 @@ class RigidBody extends Component {
     this.attachedObject.mesh.quaternion.w = this.body.quaternion.w
     // console.log(this.attachedObject.mesh.quaternion)
   }
+
+  static fromParameters(object, params) {
+    return new RigidBody(object, parseBodyPrimitive(params.BodyShape), params.Mass)
+  }
 }
 
 class Camera extends Component {
@@ -61,6 +80,10 @@ class Camera extends Component {
   }
   onUpdate() {}
   onLateUpdate() {}
+
+  static fromParameters(object, params) {
+    return new Camera(object, params.FoV, params.Near, params.Far)
+  }
 }
 
-module.exports = { Component, RigidBody, Camera }
+module.exports = { BodyPrimitive, Component, RigidBody, Camera }

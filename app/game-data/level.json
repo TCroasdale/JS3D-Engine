@@ -1,8 +1,8 @@
 {
   "Scene": {
     "Name": "Root",
-    "Type":"Blank",
-    "children": [
+    "Type": "Blank",
+    "Children": [
     {
       "Name": "Camera-Obj",
       "Type": "Blank",
@@ -23,7 +23,8 @@
       "Type": "Object3D",
       "Mesh": {
         "Primitive": "Cube",
-        "Shape": { "w": 10, "h": 0.5, "d": 10}
+        "Shape": { "w": 10, "h": 0.5, "d": 10},
+        "Material": "Normal"
       },
       "Position": { "x": 0, "y": -10, "z": 0 },
       "Components": [
@@ -32,7 +33,7 @@
           "Parameters": {
             "BodyShape": {
               "Primitive": "Cube",
-              "Half-Extents": { "w": 5, "h": 0.25, "d": 5}
+              "HalfExtents": { "w": 5, "h": 0.25, "d": 5}
             },
             "Mass": 5
           }
@@ -44,7 +45,8 @@
       "Type": "Object3D",
       "Mesh": {
         "Primitive": "Cube",
-        "Shape": { "w": 0.5, "h": 0.5, "d": 0.5}
+        "Shape": { "w": 0.5, "h": 0.5, "d": 0.5 },
+        "Material": "Normal"
       },
       "Position": { "x": 0, "y": 0, "z": 0 },
       "Components": [
@@ -53,7 +55,7 @@
           "Parameters": {
             "BodyShape": {
               "Primitive": "Cube",
-              "Half-Extents": { "w": 0.25, "h": 0.25, "d": 0.25}
+              "HalfExtents": { "w": 0.25, "h": 0.25, "d": 0.25}
             },
             "Mass": 0
           }
@@ -65,9 +67,12 @@
       "Type": "Object3D",
       "Mesh": {
         "Primitive": "Sphere",
-        "Radius": 0.5,
-        "Rings": 16,
-        "Segments": 8
+        "Shape": {
+          "Radius": 0.5,
+          "Rings": 16,
+          "Segments": 8
+        },
+        "Material": "Normal"
       },
       "Components": [
         {
