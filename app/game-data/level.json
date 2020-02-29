@@ -1,0 +1,87 @@
+{
+  "Scene": {
+    "Name": "Root",
+    "Type":"Blank",
+    "children": [
+    {
+      "Name": "Camera-Obj",
+      "Type": "Blank",
+      "Position": { "x": 0, "y": 0, "z": -10 },
+      "Components": [
+        {
+          "Class": "Camera",
+          "Parameters": {
+            "FoV": 75,
+            "Near": 0.1,
+            "Far": 500
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Ground",
+      "Type": "Object3D",
+      "Mesh": {
+        "Primitive": "Cube",
+        "Shape": { "w": 10, "h": 0.5, "d": 10}
+      },
+      "Position": { "x": 0, "y": -10, "z": 0 },
+      "Components": [
+        {
+          "Class": "RigidBody",
+          "Parameters": {
+            "BodyShape": {
+              "Primitive": "Cube",
+              "Half-Extents": { "w": 5, "h": 0.25, "d": 5}
+            },
+            "Mass": 5
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Cube",
+      "Type": "Object3D",
+      "Mesh": {
+        "Primitive": "Cube",
+        "Shape": { "w": 0.5, "h": 0.5, "d": 0.5}
+      },
+      "Position": { "x": 0, "y": 0, "z": 0 },
+      "Components": [
+        {
+          "Class": "RigidBody",
+          "Parameters": {
+            "BodyShape": {
+              "Primitive": "Cube",
+              "Half-Extents": { "w": 0.25, "h": 0.25, "d": 0.25}
+            },
+            "Mass": 0
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Sphere",
+      "Type": "Object3D",
+      "Mesh": {
+        "Primitive": "Sphere",
+        "Radius": 0.5,
+        "Rings": 16,
+        "Segments": 8
+      },
+      "Components": [
+        {
+          "Class": "RigidBody",
+          "Parameters": {
+            "BodyShape": {
+              "Primitive": "Sphere",
+              "Radius": 0.5
+            },
+            "Mass": 5
+          }
+        }
+      ]
+    }
+  ]
+  }
+}

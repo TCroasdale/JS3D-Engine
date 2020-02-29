@@ -1,6 +1,7 @@
 (() => {
   const SceneController = require("./scripts/engine/SceneController.js")
   const Object = require("./scripts/engine/Object3D.js")
+  const Components = require("./scripts/engine/Components.js")
   let mSceneController = new SceneController()
 
   mSceneController.startController(document.getElementById('app-body'))
@@ -13,9 +14,10 @@
   sphere.getMesh().position.x = 0.5
   sphere.getMesh().position.z = 0
 
-  mSceneController.registerBody(cube, new Object.RigidBody(cube, Object.BodyPrimitive.CUBE(0.25, 0.25, 0.25), 5))
-  mSceneController.registerBody(plane, new Object.RigidBody(plane, Object.BodyPrimitive.CUBE(5, 0.1, 5), 0))
-  mSceneController.registerBody(sphere, new Object.RigidBody(sphere, Object.BodyPrimitive.SPHERE(0.5), 5))
+  mSceneController.registerBody(cube, new Components.RigidBody(cube, Object.BodyPrimitive.CUBE(0.25, 0.25, 0.25), 5))
+  mSceneController.registerBody(plane, new Components.RigidBody(plane, Object.BodyPrimitive.CUBE(5, 0.1, 5), 0))
+  mSceneController.registerBody(sphere, new Components.RigidBody(sphere, Object.BodyPrimitive.SPHERE(0.5), 5))
+  
   mSceneController.setLoopCallback((dT) => {
     cube.onUpdate(dT)
     plane.onUpdate(dT)

@@ -69,6 +69,12 @@ let SceneController = function () {
       obj.addComponent(rBody)
       mWorld.addBody(rBody.body)
       console.log(obj, rBody, mWorld)
+    },
+    registerCamera: (obj, camera) => {
+      obj.addComponent(camera)
+      camera.camera = new THREE.PerspectiveCamera(camera.FoV, winWidth / winHeight, camera.near, camera.far)
+      mCamera = camera.camera
+
     }
   }
 }
