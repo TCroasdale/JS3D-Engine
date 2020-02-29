@@ -1,0 +1,20 @@
+{
+  "name": "js3d-engine",
+  "version": "1.0.0",
+  "description": "A 3D Game Engine based written with NodeJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "Thomas Croasdale",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^8.0.2"
+  },
+  "dependencies": {
+    "cannon": "^0.6.2",
+    "howler": "^2.1.3",
+    "three": "^0.113.2"
+  }
+}
