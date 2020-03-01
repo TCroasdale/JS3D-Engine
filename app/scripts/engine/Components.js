@@ -4,6 +4,7 @@ class Component {
     this.attachedObject = obj
   }
   onCreate() {}
+  onEarlyUpdate() {}
   onUpdate() {}
   onLateUpdate() {}
   static fromParameters(p) {}
@@ -33,7 +34,6 @@ class RigidBody extends Component {
     this.onCreate()
   }
   onCreate() {
-    // this.attachedObject.mesh.useQuaternion = true
     this.body = new CANNON.Body({
       mass: this.mass, // kg
       position: new CANNON.Vec3(this.attachedObject.mesh.position.x,
@@ -56,6 +56,7 @@ class RigidBody extends Component {
   }
 
   static fromParameters(object, params) {
+    console.log(params)
     return new RigidBody(object, parseBodyPrimitive(params.BodyShape), params.Mass)
   }
 }
@@ -74,9 +75,10 @@ class Camera extends Component {
 
   onCreate() {}
   onEarlyUpdate(dT) {
-    this.camera.position.x = this.attachedObject.position.x
-    this.camera.position.y = this.attachedObject.position.y
-    this.camera.position.z = this.attachedObject.position.z
+    if (this.camera === undefined) return;
+    this.camera.position.x = this.attachedObject.mesh.position.x
+    this.camera.position.y = this.attachedObject.mesh.position.y
+    this.camera.position.z = this.attachedObject.mesh.position.z
   }
   onUpdate() {}
   onLateUpdate() {}

@@ -35,7 +35,7 @@
               "Primitive": "Cube",
               "HalfExtents": { "w": 5, "h": 0.25, "d": 5}
             },
-            "Mass": 5
+            "Mass": 0
           }
         }
       ]
@@ -57,7 +57,7 @@
               "Primitive": "Cube",
               "HalfExtents": { "w": 0.25, "h": 0.25, "d": 0.25}
             },
-            "Mass": 0
+            "Mass": 5
           }
         }
       ]

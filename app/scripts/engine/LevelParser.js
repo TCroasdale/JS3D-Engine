@@ -6,6 +6,8 @@ LevelParser = function (reader) {
   let levelData = reader.getLevel()
   let mSceneController = new SceneController()
 
+  let objects = {}
+
   let parseNode = (node, parent) => {
     let object = null
     if (node.Type === "Blank") {
@@ -35,7 +37,6 @@ LevelParser = function (reader) {
           let cam = Components.Camera.fromParameters(object, component.Parameters)
           mSceneController.registerCamera(object, cam)
         }
-        // Components.parseComponent(object, component)
       })
     }
 
@@ -45,6 +46,7 @@ LevelParser = function (reader) {
       })
     }
 
+    objects[object.getMesh().uuid] = object
     parent.add(object.getMesh())
   }
 
@@ -61,6 +63,9 @@ LevelParser = function (reader) {
     },
     getSceneController: () => {
       return mSceneController
+    },
+    getObject: (uuid) => {
+      return objects[uuid]
     }
   }
 }

@@ -1,0 +1,45 @@
+{
+  "Scene": {
+    "Name": "Root",
+    "Type": "Blank",
+    "Children": [
+    {
+      "Name": "Camera-Obj",
+      "Type": "Blank",
+      "Position": { "x": 0, "y": 0, "z": 10 },
+      "Components": [
+        {
+          "Class": "Camera",
+          "Parameters": {
+            "FoV": 75,
+            "Near": 0.1,
+            "Far": 500
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Ground",
+      "Type": "Object3D",
+      "Mesh": {
+        "Primitive": "Cube",
+        "Shape": { "w": 1, "h": 1, "d": 1},
+        "Material": "Normal"
+      },
+      "Position": { "x": 0, "y": 0, "z": 0 },
+      "Components": [
+        {
+          "Class": "RigidBody",
+          "Parameters": {
+            "BodyShape": {
+              "Primitive": "Cube",
+              "HalfExtents": { "w": 5, "h": 0.25, "d": 5}
+            },
+            "Mass": 0
+          }
+        }
+      ]
+    }
+  ]
+  }
+}

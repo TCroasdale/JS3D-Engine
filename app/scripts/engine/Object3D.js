@@ -5,7 +5,7 @@ let Primitive = {
 }
 
 let parsePrimitive = (object) => {
-  if (object.Primitive === "Box") {
+  if (object.Primitive === "Cube") {
     return Primitive.BOX(object.Shape.w, object.Shape.h, object.Shape.d)
   } else if (object.Primitive === "Plane") {
     return Primitive.PLANE(object.Shape.w, object.Shape.h, object.Shape.s)
@@ -20,8 +20,8 @@ let SimpleMaterial = {
   NORMAL: () => { return new THREE.MeshNormalMaterial() }
 }
 
-let parseMaterial = (object) => {
-  if (object.Primitive === "Normal") {
+let parseMaterial = (mat) => {
+  if (mat === "Normal") {
     return SimpleMaterial.NORMAL()
   }
 
@@ -31,7 +31,7 @@ let parseMaterial = (object) => {
 
 class Object3D {
   constructor (parent, geometry, material){
-    if (parent === null && geometry === null) {
+    if (material !== null && geometry !== null) {
       this.mesh = new THREE.Mesh(geometry, material)
     } else {
       this.mesh = new THREE.Object3D()
@@ -49,7 +49,10 @@ class Object3D {
     this.mesh.name = name
   }
   getMesh () { return this.mesh }
-  addComponent (comp) { this.components.push(comp) }
+  addComponent (comp) {
+    comp.attachedObject = this
+    this.components.push(comp)
+  }
   onEarlyUpdate (dT) {
     this.components.forEach((comp) => {
       comp.onEarlyUpdate(dT)
