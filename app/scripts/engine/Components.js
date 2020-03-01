@@ -82,7 +82,6 @@ class RigidBody extends Component {
   }
 
   static fromParameters(object, params) {
-    console.log(params)
     return new RigidBody(object, parseBodyPrimitive(params.BodyShape), params.Mass)
   }
 }

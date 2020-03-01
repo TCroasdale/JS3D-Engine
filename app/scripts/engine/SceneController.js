@@ -42,7 +42,6 @@ let SceneController = function () {
 
       mRenderer = new THREE.WebGLRenderer({ antialias: true })
       mRenderer.setSize(winWidth, winHeight)
-      // mRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0))
 
       document.body.appendChild(mRenderer.domElement)
 
@@ -70,14 +69,13 @@ let SceneController = function () {
     registerBody: (obj, rBody) => {
       obj.addComponent(rBody)
       mWorld.addBody(rBody.body)
-      rBody.initDebugFrame(mScene)
+      // rBody.initDebugFrame(mScene)
     },
     registerCamera: (obj, camera) => {
       obj.addComponent(camera)
       camera.camera = new THREE.PerspectiveCamera(camera.FoV, ratio, camera.near, camera.far)
       obj.getMesh().add(camera.camera)
       mCamera = camera.camera
-      // mCamera.lookAt(new THREE.Vector3(0,-10,0))
     }
   }
 }
