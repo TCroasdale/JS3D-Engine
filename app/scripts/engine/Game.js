@@ -1,7 +1,7 @@
 (() => {
   const LevelReader = require("./scripts/engine/LevelReader.js")
   const LevelParser = require("./scripts/engine/LevelParser.js")
-  
+  const InputController = require("./scripts/engine/InputController.js")
   
   let levelReader = new LevelReader("./app/game-data/level.json")
   let levelParser = new LevelParser(levelReader)
@@ -9,7 +9,12 @@
   let mSceneController = levelParser.getSceneController()
   mSceneController.startRenderLoop()
 
+  let mInputController = new InputController()
+  mInputController.init()
+
   mSceneController.setLoopCallback((dT) => {
+    console.log(mInputController.getAxis("Horizontal"))
+
     mSceneController.getScene().traverse((obj) => {
       let object = levelParser.getObject(obj.uuid) 
       if (object !== undefined) {

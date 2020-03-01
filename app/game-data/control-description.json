@@ -1,0 +1,26 @@
+{
+  "Comment": "https://keycode.info/",
+  "Controls": {
+    "Vertical": {
+      "Type": "Axis",
+      "KeyMouse": {
+        "Positive": "w",
+        "Negative": "s"
+      },
+      "Gamepad": {
+        "AxesID": 1,
+        "Inverted": ""
+      }
+    },
+    "Horizontal" : {
+      "Type": "Axis",
+      "KeyMouse": {
+        "Positive": "a",
+        "Negative": "d"
+      },
+      "Gamepad": {
+        "AxesID": 0
+      }
+    }
+  }
+}
