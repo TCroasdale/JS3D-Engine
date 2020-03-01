@@ -4,8 +4,8 @@
     "Vertical": {
       "Type": "Axis",
       "KeyMouse": {
-        "Positive": "w",
-        "Negative": "s"
+        "Positive": "KeyW",
+        "Negative": "KeyS"
       },
       "Gamepad": {
         "AxesID": 1,
@@ -15,8 +15,8 @@
     "Horizontal" : {
       "Type": "Axis",
       "KeyMouse": {
-        "Positive": "a",
-        "Negative": "d"
+        "Positive": "KeyA",
+        "Negative": "KeyD"
       },
       "Gamepad": {
         "AxesID": 0

@@ -6,8 +6,7 @@ InputController = function () {
   let gamepadConnected = false
   let gamepadID = 0
   let controls = {}
-  let axes = {}
-  let buttons = {}
+  let keyStates = {}
 
   window._InputController = this
 
@@ -17,13 +16,16 @@ InputController = function () {
       controls = JSON.parse(rawdata).Controls
       console.log(controls.Controls)
 
+      window.addEventListener("keydown", (e) => {
+        keyStates[e.code] = true
+      })
 
+      window.addEventListener("keyup", (e) => {
+        keyStates[e.code] = false
+      })
 
       window.addEventListener("gamepadconnected", (e) => {
-        console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-          e.gamepad.index, e.gamepad.id,
-          e.gamepad.buttons.length, e.gamepad.axes.length);
-        console.log(navigator.getGamepads()[e.gamepad.index])
+        console.log(`Gamepad ${e.gamepad.index} connected`, navigator.getGamepads()[e.gamepad.index])
         if (autoUseGamepad) {
           usingGamepad = true
         }
@@ -36,9 +38,6 @@ InputController = function () {
         usingGamepad = false
         gamepadConnected = false
       })
-    },
-    getInstance: () => {
-      return window._InputController
     },
     switchInputs: () => {
       usingGamepad = !usingGamepad 
@@ -54,9 +53,23 @@ InputController = function () {
           value *= -1
         }
         return value
-      }
+      } else {
+        let posKey = controls[name].KeyMouse.Positive
+        let negKey = controls[name].KeyMouse.Negative
 
-      return 0
+        let sum = 0
+        if (keyStates[posKey] !== undefined) {
+          if (keyStates[posKey] === true) {
+            sum += 1
+          }
+        }
+        if (keyStates[negKey] !== undefined) {
+          if (keyStates[negKey] === true) {
+            sum -=1
+          }
+        }
+        return sum
+      }
     },
     getButton: (name) => {
       if (usingGamepad) {
