@@ -34,16 +34,23 @@ class RigidBody extends Component {
     this.onCreate()
   }
   onCreate() {
+    // initpos to world position
+    var initpos = new THREE.Vector3();
+    this.attachedObject.mesh.updateMatrixWorld()
+    initpos.setFromMatrixPosition( this.attachedObject.mesh.matrixWorld );
     this.body = new CANNON.Body({
       mass: this.mass, // kg
-      position: new CANNON.Vec3(this.attachedObject.mesh.position.x,
-                                this.attachedObject.mesh.position.y,
-                                this.attachedObject.mesh.position.z), // m
+      position: new CANNON.Vec3(initpos.x,
+                                initpos.y,
+                                initpos.z), // m
       shape: this.bodyShape
    })
   }
 
   onLateUpdate() {
+    let parent = this.attachedObject.mesh.parent
+    parent.remove(this.attachedObject.mesh)
+
     this.attachedObject.mesh.position.x = this.body.position.x
     this.attachedObject.mesh.position.y = this.body.position.y
     this.attachedObject.mesh.position.z = this.body.position.z
@@ -52,6 +59,8 @@ class RigidBody extends Component {
     this.attachedObject.mesh.quaternion.y = this.body.quaternion.y
     this.attachedObject.mesh.quaternion.z = this.body.quaternion.z
     this.attachedObject.mesh.quaternion.w = this.body.quaternion.w
+
+    parent.attach(this.attachedObject.mesh)
 
     if (this.line !== undefined){
       this.line.position.x = this.body.position.x

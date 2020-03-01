@@ -6,7 +6,7 @@
     {
       "Name": "Camera-Obj",
       "Type": "Blank",
-      "Position": { "x": 0, "y": 0, "z": 15 },
+      "Position": { "x": 0, "y": 0, "z": 30 },
       "Components": [
         {
           "Class": "Camera",
@@ -38,93 +38,117 @@
             "Mass": 0
           }
         }
-      ]
-    },
-    {
-      "Name": "Wall_North",
-      "Type": "Object3D",
-      "Mesh": {
-        "Primitive": "Cube",
-        "Shape": { "w": 10, "h": 1, "d": 1 },
-        "Material": "Normal"
-      },
-      "Position": { "x": 0, "y": -9.5, "z": 5 },
-      "Components": [
+      ],
+      "Children": [
         {
-          "Class": "RigidBody",
-          "Parameters": {
-            "BodyShape": {
-              "Primitive": "Cube",
-              "HalfExtents": { "w": 5, "h": 0.5, "d": 0.5 }
-            },
-            "Mass": 0
-          }
-        }
-      ]
-    },
-    {
-      "Name": "Wall_South",
-      "Type": "Object3D",
-      "Mesh": {
-        "Primitive": "Cube",
-        "Shape": { "w": 10, "h": 1, "d": 1 },
-        "Material": "Normal"
-      },
-      "Position": { "x": 0, "y": -9.5, "z": -5 },
-      "Components": [
+          "Name": "Ground_2",
+          "Type": "Object3D",
+          "Mesh": {
+            "Primitive": "Cube",
+            "Shape": { "w": 1, "h": 1, "d": 1},
+            "Material": "Normal"
+          },
+          "Position": { "x": 0, "y": 5, "z": 0 },
+          "Components": [
+            {
+              "Class": "RigidBody",
+              "Parameters": {
+                "BodyShape": {
+                  "Primitive": "Cube",
+                  "HalfExtents": { "w": 0.5, "h": 0.5, "d": 0.5}
+                },
+                "Mass": 0
+              }
+            }
+          ]
+        },
         {
-          "Class": "RigidBody",
-          "Parameters": {
-            "BodyShape": {
-              "Primitive": "Cube",
-              "HalfExtents": { "w": 5, "h": 0.5, "d": 0.5 }
-            },
-            "Mass": 0
-          }
-        }
-      ]
-    },
-    {
-      "Name": "Wall_East",
-      "Type": "Object3D",
-      "Mesh": {
-        "Primitive": "Cube",
-        "Shape": { "w": 1, "h": 1, "d": 10 },
-        "Material": "Normal"
-      },
-      "Position": { "x": 5, "y": -9.5, "z": 0 },
-      "Components": [
+          "Name": "Wall_North",
+          "Type": "Object3D",
+          "Mesh": {
+            "Primitive": "Cube",
+            "Shape": { "w": 10, "h": 1, "d": 1 },
+            "Material": "Normal"
+          },
+          "Position": { "x": 0, "y": 0.5, "z": 5 },
+          "Components": [
+            {
+              "Class": "RigidBody",
+              "Parameters": {
+                "BodyShape": {
+                  "Primitive": "Cube",
+                  "HalfExtents": { "w": 5, "h": 0.5, "d": 0.5 }
+                },
+                "Mass": 0
+              }
+            }
+          ]
+        },
         {
-          "Class": "RigidBody",
-          "Parameters": {
-            "BodyShape": {
-              "Primitive": "Cube",
-              "HalfExtents": { "w": 0.5, "h": 0.5, "d": 5 }
-            },
-            "Mass": 0
-          }
-        }
-      ]
-    },
-    {
-      "Name": "Wall_West",
-      "Type": "Object3D",
-      "Mesh": {
-        "Primitive": "Cube",
-        "Shape": { "w": 1, "h": 1, "d": 10 },
-        "Material": "Normal"
-      },
-      "Position": { "x": -5, "y": -9.5, "z": 0 },
-      "Components": [
+          "Name": "Wall_South",
+          "Type": "Object3D",
+          "Mesh": {
+            "Primitive": "Cube",
+            "Shape": { "w": 10, "h": 1, "d": 1 },
+            "Material": "Normal"
+          },
+          "Position": { "x": 0, "y": 0.5, "z": -5 },
+          "Components": [
+            {
+              "Class": "RigidBody",
+              "Parameters": {
+                "BodyShape": {
+                  "Primitive": "Cube",
+                  "HalfExtents": { "w": 5, "h": 0.5, "d": 0.5 }
+                },
+                "Mass": 0
+              }
+            }
+          ]
+        },
         {
-          "Class": "RigidBody",
-          "Parameters": {
-            "BodyShape": {
-              "Primitive": "Cube",
-              "HalfExtents": { "w": 0.5, "h": 0.25, "d": 5 }
-            },
-            "Mass": 0
-          }
+          "Name": "Wall_East",
+          "Type": "Object3D",
+          "Mesh": {
+            "Primitive": "Cube",
+            "Shape": { "w": 1, "h": 1, "d": 10 },
+            "Material": "Normal"
+          },
+          "Position": { "x": 5, "y": 0.5, "z": 0 },
+          "Components": [
+            {
+              "Class": "RigidBody",
+              "Parameters": {
+                "BodyShape": {
+                  "Primitive": "Cube",
+                  "HalfExtents": { "w": 0.5, "h": 0.5, "d": 5 }
+                },
+                "Mass": 0
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Wall_West",
+          "Type": "Object3D",
+          "Mesh": {
+            "Primitive": "Cube",
+            "Shape": { "w": 1, "h": 1, "d": 10 },
+            "Material": "Normal"
+          },
+          "Position": { "x": -5, "y": 0.5, "z": 0 },
+          "Components": [
+            {
+              "Class": "RigidBody",
+              "Parameters": {
+                "BodyShape": {
+                  "Primitive": "Cube",
+                  "HalfExtents": { "w": 0.5, "h": 0.25, "d": 5 }
+                },
+                "Mass": 0
+              }
+            }
+          ]
         }
       ]
     },
