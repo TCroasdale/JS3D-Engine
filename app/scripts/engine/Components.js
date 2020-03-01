@@ -52,7 +52,33 @@ class RigidBody extends Component {
     this.attachedObject.mesh.quaternion.y = this.body.quaternion.y
     this.attachedObject.mesh.quaternion.z = this.body.quaternion.z
     this.attachedObject.mesh.quaternion.w = this.body.quaternion.w
-    // console.log(this.attachedObject.mesh.quaternion)
+
+    if (this.line !== undefined){
+      this.line.position.x = this.body.position.x
+      this.line.position.y = this.body.position.y
+      this.line.position.z = this.body.position.z
+      
+      this.line.quaternion.x = this.body.quaternion.x
+      this.line.quaternion.y = this.body.quaternion.y
+      this.line.quaternion.z = this.body.quaternion.z
+      this.line.quaternion.w = this.body.quaternion.w
+    }
+  }
+
+  initDebugFrame(scene) {
+    let geometry = null
+    if (this.body.shapes[0].halfExtents !== undefined){
+      let he = this.body.shapes[0].halfExtents
+      geometry = new THREE.BoxGeometry(he.x*2, he.y*2, he.z*2)
+    } else {
+      geometry = new THREE.SphereBufferGeometry(this.body.shapes[0].radius, 8, 4)
+    }
+    let wireframe = new THREE.WireframeGeometry(geometry)
+    this.line = new THREE.LineSegments(wireframe)
+    this.line.material.depthTest = false
+    this.line.material.opacity = 0.75
+    this.line.material.transparent = true
+    scene.add(this.line)
   }
 
   static fromParameters(object, params) {
