@@ -19,7 +19,7 @@
       ]
     },
     {
-      "Name": "Ground",
+      "Name": "Cube",
       "Type": "Object3D",
       "Mesh": {
         "Primitive": "Cube",

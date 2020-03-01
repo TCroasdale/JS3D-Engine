@@ -76,7 +76,7 @@ let SceneController = function () {
       camera.camera = new THREE.PerspectiveCamera(camera.FoV, ratio, camera.near, camera.far)
       obj.getMesh().add(camera.camera)
       mCamera = camera.camera
-      mCamera.lookAt(new THREE.Vector3(0,0,0))
+      mCamera.lookAt(new THREE.Vector3(0,-10,0))
     }
   }
 }
