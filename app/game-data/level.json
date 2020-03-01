@@ -6,7 +6,7 @@
     {
       "Name": "Camera-Obj",
       "Type": "Blank",
-      "Position": { "x": 0, "y": 0, "z": 30 },
+      "Position": { "x": 0, "y": 0, "z": 15 },
       "Components": [
         {
           "Class": "Camera",
@@ -158,7 +158,7 @@
         "Shape": { "w": 0.5, "h": 0.5, "d": 0.5 },
         "Material": "Normal"
       },
-      "Position": { "x": 0, "y": 0, "z": 0 },
+      "Position": { "x": -3, "y": 0, "z": 0 },
       "Components": [
         {
           "Class": "RigidBody",
@@ -167,7 +167,7 @@
               "Primitive": "Cube",
               "HalfExtents": { "w": 0.25, "h": 0.25, "d": 0.25}
             },
-            "Mass": 5
+            "Mass": 0.1
           }
         }
       ]
@@ -178,7 +178,7 @@
       "Mesh": {
         "Primitive": "Sphere",
         "Shape": {
-          "Radius": 0.5,
+          "Radius": 1,
           "Rings": 16,
           "Segments": 8
         },
@@ -190,9 +190,9 @@
           "Parameters": {
             "BodyShape": {
               "Primitive": "Sphere",
-              "Radius": 0.5
+              "Radius": 1
             },
-            "Mass": 5
+            "Mass": 15
           }
         }
       ]

@@ -1,5 +1,5 @@
 const Components = require("../../scripts/engine/Components.js")
-// const InputController = require("../../scripts/engine/InputController.js")
+
 class TiltComponent extends Components.Component {
   constructor(obj){
     super(obj)
@@ -11,7 +11,7 @@ class TiltComponent extends Components.Component {
   onUpdate(dT, input) {
     let rBody = this.attachedObject.getComponent("RigidBody")
 
-    let axis = new CANNON.Vec3(input.getAxis("Vertical"), 0, input.getAxis("Horizontal"))
+    let axis = new CANNON.Vec3(-input.getAxis("Vertical"), 0, -input.getAxis("Horizontal"))
     let angle = this.maxTiltAngle * 0.0174533
     rBody.rotate(axis, angle)
   }

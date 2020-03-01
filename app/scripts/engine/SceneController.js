@@ -69,11 +69,11 @@ let SceneController = function () {
     registerBody: (obj, rBody) => {
       obj.addComponent(rBody)
       mWorld.addBody(rBody.body)
-      rBody.initDebugFrame(mScene)
+      // rBody.initDebugFrame(mScene)
     },
     registerCollider: (obj, col) => {
       obj.addComponent(col)
-      col.initDebugFrame(mScene)
+      // col.initDebugFrame(mScene)
     },
     registerCamera: (obj, camera) => {
       obj.addComponent(camera)
