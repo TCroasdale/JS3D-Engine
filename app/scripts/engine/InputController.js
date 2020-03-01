@@ -50,6 +50,13 @@ InputController = function () {
         }
         return value
       }
+    },
+    getButton: (name) => {
+      if (usingGamepad) {
+        let button = controls[name].Gamepad.ButtonID
+        let value = navigator.getGamepads()[gamepadID].buttons[button]
+        return value.pressed
+      }
     }
   }
 }

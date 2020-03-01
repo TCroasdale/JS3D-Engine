@@ -21,6 +21,15 @@
       "Gamepad": {
         "AxesID": 0
       }
+    },
+    "Jump": {
+      "Type": "Button",
+      "KeyMouse": {
+        "Key": "Space"
+      },
+      "Gamepad": {
+        "ButtonID": 2
+      }
     }
   }
 }

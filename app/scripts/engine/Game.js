@@ -13,7 +13,7 @@
   mInputController.init()
 
   mSceneController.setLoopCallback((dT) => {
-    console.log(mInputController.getAxis("Horizontal"))
+    console.log(mInputController.getButton("Jump"))
 
     mSceneController.getScene().traverse((obj) => {
       let object = levelParser.getObject(obj.uuid) 
