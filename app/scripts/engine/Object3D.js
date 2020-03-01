@@ -60,6 +60,14 @@ class Object3D {
       }
     })
   }
+  hasComponent (comp) {
+    return this.components.find((component) => {
+      if  (component.constructor.name === comp) {
+        return true
+      }
+    })
+    return false
+  }
   onEarlyUpdate (dT, input) {
     this.components.forEach((comp) => {
       comp.onEarlyUpdate(dT, input)

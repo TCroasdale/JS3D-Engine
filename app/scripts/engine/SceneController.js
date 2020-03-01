@@ -71,6 +71,10 @@ let SceneController = function () {
       mWorld.addBody(rBody.body)
       rBody.initDebugFrame(mScene)
     },
+    registerCollider: (obj, col) => {
+      obj.addComponent(col)
+      col.initDebugFrame(mScene)
+    },
     registerCamera: (obj, camera) => {
       obj.addComponent(camera)
       camera.camera = new THREE.PerspectiveCamera(camera.FoV, ratio, camera.near, camera.far)

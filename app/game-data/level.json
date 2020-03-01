@@ -6,7 +6,7 @@
     {
       "Name": "Camera-Obj",
       "Type": "Blank",
-      "Position": { "x": 0, "y": 0, "z": 15 },
+      "Position": { "x": 0, "y": 0, "z": 30 },
       "Components": [
         {
           "Class": "Camera",
@@ -44,7 +44,7 @@
       ],
       "Children": [
         {
-          "Name": "Ground_2",
+          "Name": "Floating_Cube",
           "Type": "Object3D",
           "Mesh": {
             "Primitive": "Cube",
@@ -54,13 +54,12 @@
           "Position": { "x": 0, "y": 5, "z": 0 },
           "Components": [
             {
-              "Class": "RigidBody",
+              "Class": "Collider",
               "Parameters": {
                 "BodyShape": {
                   "Primitive": "Cube",
                   "HalfExtents": { "w": 0.5, "h": 0.5, "d": 0.5}
-                },
-                "Mass": 0
+                }
               }
             }
           ]
@@ -76,13 +75,12 @@
           "Position": { "x": 0, "y": 0.5, "z": 5 },
           "Components": [
             {
-              "Class": "RigidBody",
+              "Class": "Collider",
               "Parameters": {
                 "BodyShape": {
                   "Primitive": "Cube",
                   "HalfExtents": { "w": 5, "h": 0.5, "d": 0.5 }
-                },
-                "Mass": 0
+                }
               }
             }
           ]
@@ -98,13 +96,12 @@
           "Position": { "x": 0, "y": 0.5, "z": -5 },
           "Components": [
             {
-              "Class": "RigidBody",
+              "Class": "Collider",
               "Parameters": {
                 "BodyShape": {
                   "Primitive": "Cube",
                   "HalfExtents": { "w": 5, "h": 0.5, "d": 0.5 }
-                },
-                "Mass": 0
+                }
               }
             }
           ]
@@ -120,13 +117,12 @@
           "Position": { "x": 5, "y": 0.5, "z": 0 },
           "Components": [
             {
-              "Class": "RigidBody",
+              "Class": "Collider",
               "Parameters": {
                 "BodyShape": {
                   "Primitive": "Cube",
                   "HalfExtents": { "w": 0.5, "h": 0.5, "d": 5 }
-                },
-                "Mass": 0
+                }
               }
             }
           ]
@@ -142,13 +138,12 @@
           "Position": { "x": -5, "y": 0.5, "z": 0 },
           "Components": [
             {
-              "Class": "RigidBody",
+              "Class": "Collider",
               "Parameters": {
                 "BodyShape": {
                   "Primitive": "Cube",
                   "HalfExtents": { "w": 0.5, "h": 0.25, "d": 5 }
-                },
-                "Mass": 0
+                }
               }
             }
           ]

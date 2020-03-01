@@ -25,6 +25,42 @@ let parseBodyPrimitive = (object) => {
   return undefined
 }
 
+class Collider extends Component {
+  constructor(obj, bodyShape, rBody, offset) {
+    super(obj)
+    this.bodyShape = bodyShape
+    this.rBody = rBody
+    this.offset = offset
+
+    this.onCreate()
+  }
+
+  onCreate() {
+    this.rBody.body.addShape(this.bodyShape, this.offset)
+  }
+
+  initDebugFrame(scene) {
+    let geometry = null
+    if (this.bodyShape.halfExtents !== undefined){
+      let he = this.bodyShape.halfExtents
+      geometry = new THREE.BoxGeometry(he.x*2, he.y*2, he.z*2)
+    } else {
+      geometry = new THREE.SphereBufferGeometry(this.bodyShape.radius, 8, 4)
+    }
+    let wireframe = new THREE.WireframeGeometry(geometry)
+    this.line = new THREE.LineSegments(wireframe)
+    this.line.material.depthTest = false
+    this.line.material.opacity = 0.75
+    this.line.material.transparent = true
+
+    this.attachedObject.mesh.add(this.line)
+  }
+
+  static fromParameters(object, params, rBody, offset) {
+    return new Collider(object, parseBodyPrimitive(params.BodyShape), rBody, offset)
+  }
+}
+
 class RigidBody extends Component {
   constructor(obj, bodyShape, mass) {
     super(obj)
@@ -40,9 +76,7 @@ class RigidBody extends Component {
     initpos.setFromMatrixPosition( this.attachedObject.mesh.matrixWorld );
     this.body = new CANNON.Body({
       mass: this.mass, // kg
-      position: new CANNON.Vec3(initpos.x,
-                                initpos.y,
-                                initpos.z), // m
+      position: new CANNON.Vec3(initpos.x, initpos.y, initpos.z), // m
       shape: this.bodyShape
    })
   }
@@ -61,17 +95,6 @@ class RigidBody extends Component {
     this.attachedObject.mesh.quaternion.w = this.body.quaternion.w
 
     parent.attach(this.attachedObject.mesh)
-
-    if (this.line !== undefined){
-      this.line.position.x = this.body.position.x
-      this.line.position.y = this.body.position.y
-      this.line.position.z = this.body.position.z
-      
-      this.line.quaternion.x = this.body.quaternion.x
-      this.line.quaternion.y = this.body.quaternion.y
-      this.line.quaternion.z = this.body.quaternion.z
-      this.line.quaternion.w = this.body.quaternion.w
-    }
   }
 
   rotate(axis, angle) {
@@ -91,7 +114,7 @@ class RigidBody extends Component {
     this.line.material.depthTest = false
     this.line.material.opacity = 0.75
     this.line.material.transparent = true
-    scene.add(this.line)
+    this.attachedObject.mesh.add(this.line)
   }
 
   static fromParameters(object, params) {
@@ -126,4 +149,4 @@ class Camera extends Component {
   }
 }
 
-module.exports = { BodyPrimitive, Component, RigidBody, Camera }
+module.exports = { BodyPrimitive, Component, RigidBody, Collider, Camera }

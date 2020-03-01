@@ -8,8 +8,12 @@ LevelParser = function (reader) {
 
   let objects = {}
 
+  let lastRBody = null
   let parseNode = (node, parent) => {
-    let object = null
+    let object = 
+
+    parent = parent.getMesh === undefined ? parent : parent.getMesh()
+
     if (node.Type === "Blank") {
       object = new Object.Object3D(parent, null, null)
     } else if (node.Type === "Object3D") {
@@ -32,7 +36,12 @@ LevelParser = function (reader) {
       node.Components.forEach((component) => {
         if (component.Class === "RigidBody") {
           let body = Components.RigidBody.fromParameters(object, component.Parameters)
+          lastRBody = body
           mSceneController.registerBody(object, body)
+        } else if (component.Class === "Collider") {
+          let coll = Components.Collider.fromParameters(object, component.Parameters, lastRBody, node.Position)
+          console.log("Added to rbody", lastRBody, node.Position)
+          mSceneController.registerCollider(object, coll)
         } else if (component.Class === "Camera") {
           let cam = Components.Camera.fromParameters(object, component.Parameters)
           mSceneController.registerCamera(object, cam)
