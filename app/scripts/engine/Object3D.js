@@ -53,19 +53,26 @@ class Object3D {
     comp.attachedObject = this
     this.components.push(comp)
   }
-  onEarlyUpdate (dT) {
-    this.components.forEach((comp) => {
-      comp.onEarlyUpdate(dT)
+  getComponent (comp) {
+    return this.components.find((component) => {
+      if  (component.constructor.name === comp) {
+        return component
+      }
     })
   }
-  onUpdate (dT) {
+  onEarlyUpdate (dT, input) {
     this.components.forEach((comp) => {
-      comp.onUpdate(dT)
+      comp.onEarlyUpdate(dT, input)
     })
   }
-  onLateUpdate (dT) {
+  onUpdate (dT, input) {
     this.components.forEach((comp) => {
-      comp.onLateUpdate(dT)
+      comp.onUpdate(dT, input)
+    })
+  }
+  onLateUpdate (dT, input) {
+    this.components.forEach((comp) => {
+      comp.onLateUpdate(dT, input)
     })
   }
 }

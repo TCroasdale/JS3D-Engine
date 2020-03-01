@@ -74,6 +74,10 @@ class RigidBody extends Component {
     }
   }
 
+  rotate(axis, angle) {
+    this.body.quaternion.setFromAxisAngle(axis, angle);
+  }
+
   initDebugFrame(scene) {
     let geometry = null
     if (this.body.shapes[0].halfExtents !== undefined){

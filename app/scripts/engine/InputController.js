@@ -9,6 +9,8 @@ InputController = function () {
   let axes = {}
   let buttons = {}
 
+  window._InputController = this
+
   return {
     init: (path = "./app/game-data/control-description.json") => {
       let rawdata = fs.readFileSync(path)
@@ -35,6 +37,9 @@ InputController = function () {
         gamepadConnected = false
       })
     },
+    getInstance: () => {
+      return window._InputController
+    },
     switchInputs: () => {
       usingGamepad = !usingGamepad 
       if (!gamepadConnected)
@@ -50,6 +55,8 @@ InputController = function () {
         }
         return value
       }
+
+      return 0
     },
     getButton: (name) => {
       if (usingGamepad) {
@@ -57,6 +64,8 @@ InputController = function () {
         let value = navigator.getGamepads()[gamepadID].buttons[button]
         return value.pressed
       }
+
+      return false
     }
   }
 }

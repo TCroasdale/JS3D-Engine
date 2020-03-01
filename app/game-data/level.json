@@ -6,7 +6,7 @@
     {
       "Name": "Camera-Obj",
       "Type": "Blank",
-      "Position": { "x": 0, "y": 0, "z": 30 },
+      "Position": { "x": 0, "y": 0, "z": 15 },
       "Components": [
         {
           "Class": "Camera",
@@ -37,6 +37,9 @@
             },
             "Mass": 0
           }
+        },
+        {
+          "Class": "TiltComponent"
         }
       ],
       "Children": [

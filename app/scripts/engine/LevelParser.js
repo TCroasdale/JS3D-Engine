@@ -37,6 +37,10 @@ LevelParser = function (reader) {
           let cam = Components.Camera.fromParameters(object, component.Parameters)
           mSceneController.registerCamera(object, cam)
         }
+        else {
+          let newComp = require("../../game-data/Components/" + component.Class +".js")
+          object.addComponent(new newComp())
+        }
       })
     }
 
