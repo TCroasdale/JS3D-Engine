@@ -167,7 +167,7 @@
               "Primitive": "Cube",
               "HalfExtents": { "w": 0.25, "h": 0.25, "d": 0.25}
             },
-            "Mass": 0.1
+            "Mass": 100
           }
         }
       ]
@@ -192,7 +192,7 @@
               "Primitive": "Sphere",
               "Radius": 1
             },
-            "Mass": 15
+            "Mass": 0.15
           }
         }
       ]
