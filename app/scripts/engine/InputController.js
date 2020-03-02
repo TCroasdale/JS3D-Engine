@@ -7,7 +7,9 @@ InputController = function () {
   const gamepadID = 0
   let controls = {}
   const keyStates = {}
+  const buttonStates = {}
   const events = {}
+  let gamepadPollFrequency = 100
 
   window._InputController = this
 
@@ -63,6 +65,8 @@ InputController = function () {
         usingGamepad = false
         gamepadConnected = false
       })
+
+      setInterval(updateGamepadInputs, gamepadPollFrequency)
     },
     addEventListener: (event, callback) => {
       window.addEventListener(event, callback)
@@ -70,11 +74,37 @@ InputController = function () {
     updateGamepadInputs: () => {
       if (usingGamepad && gamepadConnected) {
         const gamepad = navigator.getGamepads()[e.gamepad.index]
+        
+        for (let b = 0; b < gamepad.buttons.length; b++) {
+          // Dispatch events if necesary
+          if (buttonStates[b] === false && gamepad.buttons[b].pressed === true){
+            Object.entries(controls).forEach((control) => {
+              if (control[1].Type === 'Button') {
+                if (control[1].Gamepad.ButtonID === b) {
+                  window.dispatchEvent(events[`${control[0]}-pressed`])
+                }
+              }
+            })
+          }
+          if (buttonStates[b] === true && gamepad.buttons[b].pressed === false){
+            Object.entries(controls).forEach((control) => {
+              if (control[1].Type === 'Button') {
+                if (control[1].Gamepad.ButtonID === b) {
+                  window.dispatchEvent(events[`${control[0]}-released`])
+                }
+              }
+            })
+          }
+
+          buttonStates[b] = gamepad.buttons[b].pressed
+        }
       }
     },
     switchInputs: () => {
       usingGamepad = !usingGamepad
-      if (!gamepadConnected) { isingGamepad = false }
+      if (!gamepadConnected) {
+        usingGamepad = false
+      }
     },
     getIsUsingGamepad: () => { return usingGamepad },
     getAxis: (name) => {
