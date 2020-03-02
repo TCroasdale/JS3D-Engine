@@ -2,34 +2,34 @@ InputController = function () {
   const fs = require('fs')
 
   let usingGamepad = false
-  let autoUseGamepad = true
+  const autoUseGamepad = true
   let gamepadConnected = false
-  let gamepadID = 0
+  const gamepadID = 0
   let controls = {}
-  let keyStates = {}
-  let events = {}
+  const keyStates = {}
+  const events = {}
 
   window._InputController = this
 
   return {
-    init: (path = "./app/game-data/control-description.json") => {
-      let rawdata = fs.readFileSync(path)
+    init: (path = './app/game-data/control-description.json') => {
+      const rawdata = fs.readFileSync(path)
       controls = JSON.parse(rawdata).Controls
       // Creating events for buttons
       Object.entries(controls).forEach((control) => {
-        if (control[1].Type === "Button") {
+        if (control[1].Type === 'Button') {
           events[`${control[0]}-pressed`] = new Event(`${control[0]}-pressed`)
           events[`${control[0]}-released`] = new Event(`${control[0]}-released`)
         }
       })
       console.log(events)
 
-      window.addEventListener("keydown", (e) => {
+      window.addEventListener('keydown', (e) => {
         keyStates[e.code] = true
 
-        //dispatching events
+        // dispatching events
         Object.entries(controls).forEach((control) => {
-          if (control[1].Type === "Button") {
+          if (control[1].Type === 'Button') {
             if (control[1].KeyMouse.Key === e.code) {
               window.dispatchEvent(events[`${control[0]}-pressed`])
             }
@@ -37,12 +37,12 @@ InputController = function () {
         })
       })
 
-      window.addEventListener("keyup", (e) => {
+      window.addEventListener('keyup', (e) => {
         keyStates[e.code] = false
 
-        //dispatching events
+        // dispatching events
         Object.entries(controls).forEach((control) => {
-          if (control[1].Type === "Button") {
+          if (control[1].Type === 'Button') {
             if (control[1].KeyMouse.Key === e.code) {
               window.dispatchEvent(events[`${control[0]}-released`])
             }
@@ -50,7 +50,7 @@ InputController = function () {
         })
       })
 
-      window.addEventListener("gamepadconnected", (e) => {
+      window.addEventListener('gamepadconnected', (e) => {
         console.log(`Gamepad ${e.gamepad.index} connected`, navigator.getGamepads()[e.gamepad.index])
         if (autoUseGamepad) {
           usingGamepad = true
@@ -58,8 +58,8 @@ InputController = function () {
         gamepadConnected = true
       })
 
-      window.addEventListener("gamepaddisconnected", (e) => {
-        console.log("Gamepad disconnected from index %d: %s", e.gamepad.index, e.gamepad.id);
+      window.addEventListener('gamepaddisconnected', (e) => {
+        console.log('Gamepad disconnected from index %d: %s', e.gamepad.index, e.gamepad.id)
         usingGamepad = false
         gamepadConnected = false
       })
@@ -69,26 +69,25 @@ InputController = function () {
     },
     updateGamepadInputs: () => {
       if (usingGamepad && gamepadConnected) {
-        let gamepad = navigator.getGamepads()[e.gamepad.index]
+        const gamepad = navigator.getGamepads()[e.gamepad.index]
       }
     },
     switchInputs: () => {
-      usingGamepad = !usingGamepad 
-      if (!gamepadConnected)
-        isingGamepad = false
+      usingGamepad = !usingGamepad
+      if (!gamepadConnected) { isingGamepad = false }
     },
     getIsUsingGamepad: () => { return usingGamepad },
     getAxis: (name) => {
       if (usingGamepad) {
-        let axis = controls[name].Gamepad.AxesID
+        const axis = controls[name].Gamepad.AxesID
         let value = navigator.getGamepads()[gamepadID].axes[axis]
         if (controls[name].Gamepad.Inverted !== undefined) {
           value *= -1
         }
         return value
       } else {
-        let posKey = controls[name].KeyMouse.Positive
-        let negKey = controls[name].KeyMouse.Negative
+        const posKey = controls[name].KeyMouse.Positive
+        const negKey = controls[name].KeyMouse.Negative
 
         let sum = 0
         if (keyStates[posKey] !== undefined) {
@@ -98,7 +97,7 @@ InputController = function () {
         }
         if (keyStates[negKey] !== undefined) {
           if (keyStates[negKey] === true) {
-            sum -=1
+            sum -= 1
           }
         }
         return sum
@@ -106,8 +105,8 @@ InputController = function () {
     },
     getButton: (name) => {
       if (usingGamepad) {
-        let button = controls[name].Gamepad.ButtonID
-        let value = navigator.getGamepads()[gamepadID].buttons[button]
+        const button = controls[name].Gamepad.ButtonID
+        const value = navigator.getGamepads()[gamepadID].buttons[button]
         return value.pressed
       }
 

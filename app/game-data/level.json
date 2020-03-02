@@ -194,6 +194,9 @@
             },
             "Mass": 0.15
           }
+        },
+        {
+          "Class": "JumpComponent"
         }
       ]
     }

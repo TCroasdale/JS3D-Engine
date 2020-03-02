@@ -1,27 +1,27 @@
-const SceneController = require("./SceneController.js")
-const Object = require("./Object3D.js")
-const Components = require("./Components.js")
-  
-LevelParser = function (reader) {
-  let levelData = reader.getLevel()
-  let mSceneController = new SceneController()
+const SceneController = require('./SceneController.js')
+const Object = require('./Object3D.js')
+const Components = require('./Components.js')
 
-  let objects = {}
+LevelParser = function (reader) {
+  const levelData = reader.getLevel()
+  const mSceneController = new SceneController()
+
+  const objects = {}
 
   let lastRBody = null
-  let parseNode = (node, parent) => {
-    let object = 
+  const parseNode = (node, parent) => {
+    let object =
 
     parent = parent.getMesh === undefined ? parent : parent.getMesh()
 
-    if (node.Type === "Blank") {
+    if (node.Type === 'Blank') {
       object = new Object.Object3D(parent, null, null)
-    } else if (node.Type === "Object3D") {
-      let geometry = Object.parsePrimitive(node.Mesh)
-      let material = Object.parseMaterial(node.Mesh.Material)
+    } else if (node.Type === 'Object3D') {
+      const geometry = Object.parsePrimitive(node.Mesh)
+      const material = Object.parseMaterial(node.Mesh.Material)
       object = new Object.Object3D(parent, geometry, material)
     }
-    console.log("created ", object)
+    console.log('created ', object)
 
     if (node.Name !== undefined) {
       object.setName(node.Name)
@@ -34,20 +34,19 @@ LevelParser = function (reader) {
     // Parsing components
     if (node.Components !== undefined) {
       node.Components.forEach((component) => {
-        if (component.Class === "RigidBody") {
-          let body = Components.RigidBody.fromParameters(object, component.Parameters)
+        if (component.Class === 'RigidBody') {
+          const body = Components.RigidBody.fromParameters(object, component.Parameters)
           lastRBody = body
           mSceneController.registerBody(object, body)
-        } else if (component.Class === "Collider") {
-          let coll = Components.Collider.fromParameters(object, component.Parameters, lastRBody, node.Position)
-          console.log("Added to rbody", lastRBody, node.Position)
+        } else if (component.Class === 'Collider') {
+          const coll = Components.Collider.fromParameters(object, component.Parameters, lastRBody, node.Position)
+          console.log('Added to rbody', lastRBody, node.Position)
           mSceneController.registerCollider(object, coll)
-        } else if (component.Class === "Camera") {
-          let cam = Components.Camera.fromParameters(object, component.Parameters)
+        } else if (component.Class === 'Camera') {
+          const cam = Components.Camera.fromParameters(object, component.Parameters)
           mSceneController.registerCamera(object, cam)
-        }
-        else {
-          let newComp = require("../../game-data/Components/" + component.Class +".js")
+        } else {
+          const newComp = require('../../game-data/Components/' + component.Class + '.js')
           object.addComponent(new newComp())
         }
       })
@@ -63,15 +62,15 @@ LevelParser = function (reader) {
     parent.add(object.getMesh())
   }
 
-  let parseLevel = (() => {
+  const parseLevel = () => {
     mSceneController.startController(document.getElementById('app-body'))
     parseNode(levelData.Scene, mSceneController.getScene())
     console.log(mSceneController.getScene())
-  })
+  }
 
   return {
     startParsingLevel: () => {
-      console.log("parsing level: ", levelData)
+      console.log('parsing level: ', levelData)
       parseLevel()
     },
     getSceneController: () => {

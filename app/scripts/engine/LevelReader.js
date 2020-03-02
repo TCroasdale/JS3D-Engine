@@ -1,8 +1,8 @@
 LevelReader = function (path) {
   const fs = require('fs')
 
-  let rawdata = fs.readFileSync(path)
-  let level = JSON.parse(rawdata)
+  const rawdata = fs.readFileSync(path)
+  const level = JSON.parse(rawdata)
 
   return {
     getLevel: () => { return level }

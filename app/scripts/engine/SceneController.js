@@ -1,4 +1,4 @@
-let SceneController = function () {
+const SceneController = function () {
   let mScene
 
   // let canvasElem
@@ -6,17 +6,17 @@ let SceneController = function () {
   let mRenderer
   let mClock
   let mCamera
-  let mMouse = new THREE.Vector2(0, 0)
+  const mMouse = new THREE.Vector2(0, 0)
 
-  let loopCallback = undefined
+  let loopCallback
 
   let mWorld
-  let fixedTimeStep = 1.0 / 60.0 // seconds
-  let maxSubSteps = 3
+  const fixedTimeStep = 1.0 / 60.0 // seconds
+  const maxSubSteps = 3
 
   let ratio = 0.5
 
-  let animate = function () {
+  const animate = function () {
     const delta = mClock.getDelta()
     if (loopCallback !== undefined) {
       loopCallback(delta)
@@ -45,7 +45,7 @@ let SceneController = function () {
 
       document.body.appendChild(mRenderer.domElement)
 
-      let light = new THREE.AmbientLight(0xffffff) // soft white light
+      const light = new THREE.AmbientLight(0xffffff) // soft white light
       mScene.add(light)
 
       mWorld = new CANNON.World()
@@ -60,7 +60,7 @@ let SceneController = function () {
     },
     resize: () => {
       const winWidth = mBodyElem.clientWidth
-      const winHeight = mBodyElem.clientHeight 
+      const winHeight = mBodyElem.clientHeight
 
       mCamera.aspect = winWidth / winHeight
       mCamera.updateProjectionMatrix()
@@ -84,4 +84,4 @@ let SceneController = function () {
   }
 }
 
-module.exports = SceneController 
+module.exports = SceneController
