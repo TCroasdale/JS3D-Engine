@@ -7,6 +7,7 @@ class Component {
   onEarlyUpdate() {}
   onUpdate() {}
   onLateUpdate() {}
+
   static fromParameters(p) {}
 }
 

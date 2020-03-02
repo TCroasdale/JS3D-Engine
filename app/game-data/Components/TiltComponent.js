@@ -6,7 +6,17 @@ class TiltComponent extends Components.Component {
 
     this.onCreate()
   }
-  maxTiltAngle = 4;
+  maxTiltAngle = 4
+
+  onCreate() {
+    window.addEventListener("Jump-pressed", (e) => {
+      console.log("Jump pressed")
+    })
+
+    window.addEventListener("Jump-released", (e) => {
+      console.log("Jump released")
+    })
+  }
 
   onUpdate(dT, input) {
     let rBody = this.attachedObject.getComponent("RigidBody")

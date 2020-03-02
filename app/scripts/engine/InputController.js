@@ -7,6 +7,7 @@ InputController = function () {
   let gamepadID = 0
   let controls = {}
   let keyStates = {}
+  let events = {}
 
   window._InputController = this
 
@@ -14,14 +15,39 @@ InputController = function () {
     init: (path = "./app/game-data/control-description.json") => {
       let rawdata = fs.readFileSync(path)
       controls = JSON.parse(rawdata).Controls
-      console.log(controls.Controls)
+      // Creating events for buttons
+      Object.entries(controls).forEach((control) => {
+        if (control[1].Type === "Button") {
+          events[`${control[0]}-pressed`] = new Event(`${control[0]}-pressed`)
+          events[`${control[0]}-released`] = new Event(`${control[0]}-released`)
+        }
+      })
+      console.log(events)
 
       window.addEventListener("keydown", (e) => {
         keyStates[e.code] = true
+
+        //dispatching events
+        Object.entries(controls).forEach((control) => {
+          if (control[1].Type === "Button") {
+            if (control[1].KeyMouse.Key === e.code) {
+              window.dispatchEvent(events[`${control[0]}-pressed`])
+            }
+          }
+        })
       })
 
       window.addEventListener("keyup", (e) => {
         keyStates[e.code] = false
+
+        //dispatching events
+        Object.entries(controls).forEach((control) => {
+          if (control[1].Type === "Button") {
+            if (control[1].KeyMouse.Key === e.code) {
+              window.dispatchEvent(events[`${control[0]}-released`])
+            }
+          }
+        })
       })
 
       window.addEventListener("gamepadconnected", (e) => {
@@ -33,11 +59,18 @@ InputController = function () {
       })
 
       window.addEventListener("gamepaddisconnected", (e) => {
-        console.log("Gamepad disconnected from index %d: %s",
-          e.gamepad.index, e.gamepad.id);
+        console.log("Gamepad disconnected from index %d: %s", e.gamepad.index, e.gamepad.id);
         usingGamepad = false
         gamepadConnected = false
       })
+    },
+    addEventListener: (event, callback) => {
+      window.addEventListener(event, callback)
+    },
+    updateGamepadInputs: () => {
+      if (usingGamepad && gamepadConnected) {
+        let gamepad = navigator.getGamepads()[e.gamepad.index]
+      }
     },
     switchInputs: () => {
       usingGamepad = !usingGamepad 

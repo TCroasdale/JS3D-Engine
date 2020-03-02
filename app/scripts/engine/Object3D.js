@@ -61,7 +61,7 @@ class Object3D {
     })
   }
   hasComponent (comp) {
-    return this.components.find((component) => {
+    this.components.find((component) => {
       if  (component.constructor.name === comp) {
         return true
       }
