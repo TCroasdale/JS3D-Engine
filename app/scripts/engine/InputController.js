@@ -11,7 +11,37 @@ InputController = function () {
   const events = {}
   let gamepadPollFrequency = 100
 
-  window._InputController = this
+  window.getInputController = () => { return this }
+
+  let updateGamepadInputs = () => {
+    if (usingGamepad && gamepadConnected) {
+      const gamepad = navigator.getGamepads()[gamepadID]
+      
+      for (let b = 0; b < gamepad.buttons.length; b++) {
+        // Dispatch events if necesary
+        if (buttonStates[b] === false && gamepad.buttons[b].pressed === true){
+          Object.entries(controls).forEach((control) => {
+            if (control[1].Type === 'Button') {
+              if (control[1].Gamepad.ButtonID === b) {
+                window.dispatchEvent(events[`${control[0]}-pressed`])
+              }
+            }
+          })
+        }
+        if (buttonStates[b] === true && gamepad.buttons[b].pressed === false){
+          Object.entries(controls).forEach((control) => {
+            if (control[1].Type === 'Button') {
+              if (control[1].Gamepad.ButtonID === b) {
+                window.dispatchEvent(events[`${control[0]}-released`])
+              }
+            }
+          })
+        }
+
+        buttonStates[b] = gamepad.buttons[b].pressed
+      }
+    }
+  }
 
   return {
     init: (path = './app/game-data/control-description.json') => {
@@ -53,52 +83,27 @@ InputController = function () {
       })
 
       window.addEventListener('gamepadconnected', (e) => {
-        console.log(`Gamepad ${e.gamepad.index} connected`, navigator.getGamepads()[e.gamepad.index])
-        if (autoUseGamepad) {
-          usingGamepad = true
+        if (gamepadID === e.gamepad.index) {
+          console.log(`Gamepad ${e.gamepad.index} connected`, navigator.getGamepads()[e.gamepad.index])
+          if (autoUseGamepad) {
+            usingGamepad = true
+          }
+          gamepadConnected = true
         }
-        gamepadConnected = true
       })
 
       window.addEventListener('gamepaddisconnected', (e) => {
-        console.log('Gamepad disconnected from index %d: %s', e.gamepad.index, e.gamepad.id)
-        usingGamepad = false
-        gamepadConnected = false
+        if (gamepadID === e.gamepad.index) {
+          console.log('Gamepad disconnected from index %d: %s', e.gamepad.index, e.gamepad.id)
+          usingGamepad = false
+          gamepadConnected = false
+        }
       })
 
       setInterval(updateGamepadInputs, gamepadPollFrequency)
     },
     addEventListener: (event, callback) => {
       window.addEventListener(event, callback)
-    },
-    updateGamepadInputs: () => {
-      if (usingGamepad && gamepadConnected) {
-        const gamepad = navigator.getGamepads()[e.gamepad.index]
-        
-        for (let b = 0; b < gamepad.buttons.length; b++) {
-          // Dispatch events if necesary
-          if (buttonStates[b] === false && gamepad.buttons[b].pressed === true){
-            Object.entries(controls).forEach((control) => {
-              if (control[1].Type === 'Button') {
-                if (control[1].Gamepad.ButtonID === b) {
-                  window.dispatchEvent(events[`${control[0]}-pressed`])
-                }
-              }
-            })
-          }
-          if (buttonStates[b] === true && gamepad.buttons[b].pressed === false){
-            Object.entries(controls).forEach((control) => {
-              if (control[1].Type === 'Button') {
-                if (control[1].Gamepad.ButtonID === b) {
-                  window.dispatchEvent(events[`${control[0]}-released`])
-                }
-              }
-            })
-          }
-
-          buttonStates[b] = gamepad.buttons[b].pressed
-        }
-      }
     },
     switchInputs: () => {
       usingGamepad = !usingGamepad
