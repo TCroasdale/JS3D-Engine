@@ -1,12 +1,12 @@
-LevelReader = function (path) {
+JSONReader = function (path) {
   const fs = require('fs')
 
   const rawdata = fs.readFileSync(path)
-  const level = JSON.parse(rawdata)
+  const data = JSON.parse(rawdata)
 
   return {
-    getLevel: () => { return level }
+    getData: () => { return data }
   }
 }
 
-module.exports = LevelReader
+module.exports = JSONReader

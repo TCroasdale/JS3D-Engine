@@ -5,14 +5,13 @@
   const mInputController = new InputController()
   mInputController.init()
 
-  const levelReader = new LevelReader('./app/game-data/level.json')
+  const levelReader = new JSONReader('./app/game-data/level.json')
   const levelParser = new LevelParser(levelReader)
   levelParser.startParsingLevel()
   const mSceneController = levelParser.getSceneController()
   mSceneController.startRenderLoop()
 
   mSceneController.setLoopCallback((dT) => {
-    // console.log(mInputController.getButton("Jump"))
 
     mSceneController.getScene().traverse((obj) => {
       const object = levelParser.getObject(obj.uuid)
