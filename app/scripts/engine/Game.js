@@ -12,8 +12,6 @@
   mSceneController.startRenderLoop()
 
   mSceneController.setLoopCallback((dT) => {
-    // console.log(mInputController.getButton("Jump"))
-
     mSceneController.getScene().traverse((obj) => {
       const object = levelParser.getObject(obj.uuid)
       if (object !== undefined) {

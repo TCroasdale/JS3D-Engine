@@ -1,4 +1,4 @@
-InputController = function () {
+const InputController = function () {
   const fs = require('fs')
 
   let usingGamepad = false
@@ -9,17 +9,17 @@ InputController = function () {
   const keyStates = {}
   const buttonStates = {}
   const events = {}
-  let gamepadPollFrequency = 100
+  const gamepadPollFrequency = 100
 
   window.getInputController = () => { return this }
 
-  let updateGamepadInputs = () => {
+  const updateGamepadInputs = () => {
     if (usingGamepad && gamepadConnected) {
       const gamepad = navigator.getGamepads()[gamepadID]
-      
+
       for (let b = 0; b < gamepad.buttons.length; b++) {
         // Dispatch events if necesary
-        if (buttonStates[b] === false && gamepad.buttons[b].pressed === true){
+        if (buttonStates[b] === false && gamepad.buttons[b].pressed === true) {
           Object.entries(controls).forEach((control) => {
             if (control[1].Type === 'Button') {
               if (control[1].Gamepad.ButtonID === b) {
@@ -28,7 +28,7 @@ InputController = function () {
             }
           })
         }
-        if (buttonStates[b] === true && gamepad.buttons[b].pressed === false){
+        if (buttonStates[b] === true && gamepad.buttons[b].pressed === false) {
           Object.entries(controls).forEach((control) => {
             if (control[1].Type === 'Button') {
               if (control[1].Gamepad.ButtonID === b) {

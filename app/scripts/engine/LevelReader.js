@@ -1,4 +1,4 @@
-LevelReader = function (path) {
+const LevelReader = function (path) {
   const fs = require('fs')
 
   const rawdata = fs.readFileSync(path)

@@ -29,13 +29,18 @@ const parseMaterial = (mat) => {
 }
 
 class Object3D {
-  constructor (parent, geometry, material) {
-    if (material !== null && geometry !== null) {
-      this.mesh = new THREE.Mesh(geometry, material)
-    } else {
+  constructor (argmap) {
+    if (argmap.gltf) { // gltf provided, uses only the first mesh in the scene
+      this.mesh = argmap.gltf.scene.children[0]
+    } else if (argmap.material && argmap.geometry) { // usually a primitive
+      this.mesh = new THREE.Mesh(argmap.geometry, argmap.material)
+    } else { // no model or primitive
       this.mesh = new THREE.Object3D()
     }
-    parent.add(this.mesh)
+
+    if (argmap.parent) {
+      argmap.parent.add(this.mesh)
+    }
     this.components = []
   }
 

@@ -20,7 +20,7 @@
     },
     {
       "Name": "Ground",
-      "Type": "Object3D",
+      "Type": "Primitive3D",
       "Mesh": {
         "Primitive": "Cube",
         "Shape": { "w": 10, "h": 0.5, "d": 10},
@@ -46,11 +46,7 @@
         {
           "Name": "Floating_Cube",
           "Type": "Object3D",
-          "Mesh": {
-            "Primitive": "Cube",
-            "Shape": { "w": 1, "h": 1, "d": 1},
-            "Material": "Normal"
-          },
+          "Model": "cube.gltf",
           "Position": { "x": 0, "y": 5, "z": 0 },
           "Components": [
             {
@@ -58,7 +54,7 @@
               "Parameters": {
                 "BodyShape": {
                   "Primitive": "Cube",
-                  "HalfExtents": { "w": 0.5, "h": 0.5, "d": 0.5}
+                  "HalfExtents": { "w": 1, "h": 1, "d": 1}
                 }
               }
             }
@@ -66,7 +62,7 @@
         },
         {
           "Name": "Wall_North",
-          "Type": "Object3D",
+          "Type": "Primitive3D",
           "Mesh": {
             "Primitive": "Cube",
             "Shape": { "w": 10, "h": 1, "d": 1 },
@@ -87,7 +83,7 @@
         },
         {
           "Name": "Wall_South",
-          "Type": "Object3D",
+          "Type": "Primitive3D",
           "Mesh": {
             "Primitive": "Cube",
             "Shape": { "w": 10, "h": 1, "d": 1 },
@@ -108,7 +104,7 @@
         },
         {
           "Name": "Wall_East",
-          "Type": "Object3D",
+          "Type": "Primitive3D",
           "Mesh": {
             "Primitive": "Cube",
             "Shape": { "w": 1, "h": 1, "d": 10 },
@@ -129,7 +125,7 @@
         },
         {
           "Name": "Wall_West",
-          "Type": "Object3D",
+          "Type": "Primitive3D",
           "Mesh": {
             "Primitive": "Cube",
             "Shape": { "w": 1, "h": 1, "d": 10 },
@@ -152,7 +148,7 @@
     },
     {
       "Name": "Cube",
-      "Type": "Object3D",
+      "Type": "Primitive3D",
       "Mesh": {
         "Primitive": "Cube",
         "Shape": { "w": 0.5, "h": 0.5, "d": 0.5 },
@@ -174,7 +170,7 @@
     },
     {
       "Name": "Sphere",
-      "Type": "Object3D",
+      "Type": "Primitive3D",
       "Mesh": {
         "Primitive": "Sphere",
         "Shape": {
