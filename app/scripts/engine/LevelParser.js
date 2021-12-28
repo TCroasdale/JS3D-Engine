@@ -4,7 +4,7 @@ const Object = require('./Object3D.js')
 const Components = require('./Components.js')
 
 const LevelParser = function (reader) {
-  const levelData = reader.getLevel()
+  const levelData = reader.getData()
   const mSceneController = new SceneController()
   const mLoader = new ModelLoader()
 
