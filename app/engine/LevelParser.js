@@ -1,7 +1,7 @@
 const SceneController = require('./SceneController.js')
 const ModelLoader = require('./ModelLoader.js')
 const Object = require('./Object3D.js')
-const Components = require('./Components.js')
+const Components = require('./Components/Components.js')
 
 const LevelParser = function (reader) {
   const levelData = reader.getData()
@@ -17,6 +17,8 @@ const LevelParser = function (reader) {
 
     if (node.Type === 'Blank') {
       object = new Object.Object3D({ parent })
+    } else if (node.Type === 'Light') {
+      object = new Object.Object3D({parent, light: node.Light })
     } else if (node.Type === 'Primitive3D') {
       const geometry = Object.parsePrimitive(node.Mesh)
       const material = Object.parseMaterial(node.Mesh.Material)
@@ -36,6 +38,10 @@ const LevelParser = function (reader) {
       object.setPosition(node.Position.x, node.Position.y, node.Position.z)
     }
 
+    if (node.Scale !== undefined) {
+      object.setScale(node.Scale.x, node.Scale.y, node.Scale.z)
+    }
+
     // Parsing components
     let rBody = null
     if (node.Components !== undefined) {
@@ -52,7 +58,7 @@ const LevelParser = function (reader) {
           const cam = Components.Camera.fromParameters(object, component.Parameters)
           mSceneController.registerCamera(object, cam)
         } else {
-          const NewComp = require('../../game-data/Components/' + component.Class + '.js')
+          const NewComp = require('../game-data/Components/' + component.Class + '.js')
           object.addComponent(new NewComp())
         }
       })

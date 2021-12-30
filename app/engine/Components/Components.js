@@ -100,6 +100,10 @@ class RigidBody extends Component {
     parent.attach(this.attachedObject.mesh)
   }
 
+  setRotation (axis, angle) {
+    this.body.quaternion.setFromAxisAngle(axis, angle)
+  }
+
   rotate (axis, angle) {
     this.body.quaternion.setFromAxisAngle(axis, angle)
   }

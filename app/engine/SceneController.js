@@ -41,11 +41,13 @@ const SceneController = function () {
       mScene = new THREE.Scene()
 
       mRenderer = new THREE.WebGLRenderer({ antialias: true })
+      mRenderer.shadowMap.enabled = true;
+      mRenderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
       mRenderer.setSize(winWidth, winHeight)
 
       document.body.appendChild(mRenderer.domElement)
 
-      const light = new THREE.AmbientLight(0xffffff) // soft white light
+      const light = new THREE.AmbientLight(0x000000) // soft white light
       mScene.add(light)
 
       mWorld = new CANNON.World()

@@ -1,7 +1,7 @@
-const Components = require("../../scripts/engine/Components.js")
+const Components = require("../../engine/Components/Components.js")
 
 class JumpComponent extends Components.Component {
-  constructor(obj){
+  constructor (obj) {
     super(obj)
 
     this.onCreate()

@@ -1,7 +1,7 @@
 (() => {
-  const JSONReader = require('./scripts/engine/JSONReader.js')
-  const LevelParser = require('./scripts/engine/LevelParser.js')
-  const InputController = require('./scripts/engine/InputController.js')
+  const JSONReader = require('./engine/JSONReader.js')
+  const LevelParser = require('./engine/LevelParser.js')
+  const InputController = require('./engine/InputController.js')
   const mInputController = new InputController()
   mInputController.init()
 

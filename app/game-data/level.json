@@ -4,6 +4,19 @@
     "Type": "Blank",
     "Children": [
     {
+      "Name": "point",
+      "Type": "Light",
+      "Position": { "x": 0, "y": 2.5, "z": 0 },
+      "Light": {
+        "Caster": true,
+        "Type": "Point",
+        "Color": "rgb(90%, 40%, 75%)",
+        "Intensity": 1,
+        "Distance": 0.0,
+        "Decay": 2
+      }
+    },
+    {
       "Name": "Camera-Obj",
       "Type": "Blank",
       "Position": { "x": 0, "y": 0, "z": 15 },
@@ -24,7 +37,10 @@
       "Mesh": {
         "Primitive": "Cube",
         "Shape": { "w": 10, "h": 0.5, "d": 10},
-        "Material": "Normal"
+        "Material": {
+          "Shader": "Standard",
+          "Color": "rgb(0,255,0)"
+        }
       },
       "Position": { "x": 0, "y": -10, "z": 0 },
       "Components": [
@@ -46,8 +62,9 @@
         {
           "Name": "Floating_Cube",
           "Type": "Object3D",
-          "Model": "cube.gltf",
-          "Position": { "x": 0, "y": 5, "z": 0 },
+          "Model": "horse_statue_01_4k.gltf",
+          "Position": { "x": 0, "y": 5, "z": -15 },
+          "Scale": { "x": 10, "y": 10, "z": 10 },
           "Components": [
             {
               "Class": "Collider",
@@ -57,6 +74,9 @@
                   "HalfExtents": { "w": 1, "h": 1, "d": 1}
                 }
               }
+            },
+            {
+            "Class": "AutoSpinComponent"
             }
           ]
         },
@@ -66,7 +86,10 @@
           "Mesh": {
             "Primitive": "Cube",
             "Shape": { "w": 10, "h": 1, "d": 1 },
-            "Material": "Normal"
+            "Material": {
+              "Shader": "Standard",
+              "Color": "rgb(0,0,255)"
+            }
           },
           "Position": { "x": 0, "y": 0.5, "z": 5 },
           "Components": [
@@ -87,7 +110,10 @@
           "Mesh": {
             "Primitive": "Cube",
             "Shape": { "w": 10, "h": 1, "d": 1 },
-            "Material": "Normal"
+            "Material": {
+              "Shader": "Standard",
+              "Color": "rgb(0,0,255)"
+            }
           },
           "Position": { "x": 0, "y": 0.5, "z": -5 },
           "Components": [
@@ -108,7 +134,10 @@
           "Mesh": {
             "Primitive": "Cube",
             "Shape": { "w": 1, "h": 1, "d": 10 },
-            "Material": "Normal"
+            "Material": {
+              "Shader": "Standard",
+              "Color": "rgb(0,0,255)"
+            }
           },
           "Position": { "x": 5, "y": 0.5, "z": 0 },
           "Components": [
@@ -129,7 +158,10 @@
           "Mesh": {
             "Primitive": "Cube",
             "Shape": { "w": 1, "h": 1, "d": 10 },
-            "Material": "Normal"
+            "Material": {
+              "Shader": "Standard",
+              "Color": "rgb(0,0,255)"
+            }
           },
           "Position": { "x": -5, "y": 0.5, "z": 0 },
           "Components": [
@@ -152,7 +184,10 @@
       "Mesh": {
         "Primitive": "Cube",
         "Shape": { "w": 0.5, "h": 0.5, "d": 0.5 },
-        "Material": "Normal"
+        "Material": {
+          "Shader": "Standard",
+          "Color": "rgb(0,0,255)"
+        }
       },
       "Position": { "x": -3, "y": 0, "z": 0 },
       "Components": [
@@ -178,7 +213,10 @@
           "Rings": 16,
           "Segments": 8
         },
-        "Material": "Normal"
+        "Material": {
+          "Shader": "Standard",
+          "Color": "rgb(0,0,255)"
+        }
       },
       "Components": [
         {
